@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,18 +36,23 @@ namespace Barley_break
             }
 
         }
-        public bool SaveHistory(int mValue)
+        public override bool Shift(int mValue)
         {
             int[] massiveZero = GetLocation(0);
             int[] massiveMoveValue = GetLocation(mValue);
 
-            saveValueGameField.Add(massiveZero);
-            saveValueGameField.Add(massiveMoveValue);
 
-            help = new[] { massiveZero[0], massiveZero[1], massiveMoveValue[0], massiveMoveValue[1] };
-            //saveValueGameField.Add(massiveMoveValue[0]);
-            //saveValueGameField.Add(massiveMoveValue[1]);
-            return true;
+            if (base.Shift(mValue))
+            {
+                saveValueGameField.Add(massiveZero);
+                saveValueGameField.Add(massiveMoveValue);
+
+                help = new[] { massiveZero[0], massiveZero[1], massiveMoveValue[0], massiveMoveValue[1] };
+                //saveValueGameField.Add(massiveMoveValue[0]);
+                //saveValueGameField.Add(massiveMoveValue[1]);
+                return true;
+            }
+            return false;
         }
 
         public int[] returnHelp()

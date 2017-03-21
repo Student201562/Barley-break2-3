@@ -12,6 +12,8 @@ namespace Barley_break
         public static void MethodWhichPrintGameField(ClassGameOne game)
         {
             Console.CursorTop = 2;
+            Console.WriteLine("\t\t\t Y");
+            Console.WriteLine("\r\t\t   X");
             int[,] helperMassive = game.returnfield();
             for (int i = 0; i < helperMassive.GetLength(0); i++)
             {

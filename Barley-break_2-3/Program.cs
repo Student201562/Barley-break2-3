@@ -12,7 +12,7 @@ namespace Barley_break
         static void Main(string[] args)
         {
             //int[] returnInt = FileReader.ReadFromFile("C:\\Users\\Kiril\\OneDrive\\Документы\\Visual Studio 2015\\Projects\\Barley_break\\txt.txt");
-            int count = 0;
+
             Console.Write("\tХотите ли вы сыграть? \n\t если да наберите Y \n\t если нет то любую клавишу = ");
             while (Convert.ToString(Console.ReadLine()) == "Y")
             {
@@ -23,32 +23,8 @@ namespace Barley_break
 
                 while (!game3.CheckWin())
                 {
-                    Console.Write("\t\tВведите значение, которое хотите поменять = ");
-                    int moveValue = Convert.ToInt32(Console.ReadLine());
-
-                    Console.Clear();
-                    if (!game3.Shift(moveValue))
-                    {
-                        Console.WriteLine("\t\tНекорректные данные!!!");
-                    }
-                    PrintGameField.MethodWhichPrintGameField(game3);
-
-                    if (game3.SaveHistory(moveValue))
-                    {
-                        count = 0;
-                        int[] help = game3.returnHelp();
-                        foreach (var i in help)
-                        {
-                            if (count == 0) { Console.Write("Перемещение было из {0}", i); }
-                            if (count == 1) { Console.Write(",{0}", i); }
-                            if (count == 2) { Console.Write(" в {0}", i); }
-                            if (count == 3) { Console.Write(",{0}", i); };
-                            count++;
-                        }
-                        Console.WriteLine();
-                    }
+                    StartGame(game3);
                 }
-
                 //Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("Вы выиграли!");
                 Console.Write("Если вы хотите сыграть еще раз, намите Y = ");
@@ -57,20 +33,31 @@ namespace Barley_break
             Console.ReadKey();
         }
 
-        //static void StartGame(Game3 game3)
-        //{
-        //    while (!Game3.CheckWin(game3))
-        //    {
-        //        Console.Write("\t\tВведите значение, которое хотите поменять = ");
-        //        int moveValue = Convert.ToInt32(Console.ReadLine());
+        static void StartGame(ClassGameThird game3)
+        {
+            int count = game3.help.Length;
 
-        //        Console.Clear();
-        //        if (!game3.Shift(moveValue))
-        //        {
-        //            Console.WriteLine("\t\tНекорректные данные!!!");
-        //        }
-        //        Print.PrintGameField(game3);
-        //    }
-        //}
+            Console.Write("\t\tВведите значение, которое хотите поменять = ");
+            int moveValue = Convert.ToInt32(Console.ReadLine());
+            Console.Clear(); PrintGameField.MethodWhichPrintGameField(game3);
+
+            if (game3.Shift(moveValue))
+            {
+                Console.Clear(); PrintGameField.MethodWhichPrintGameField(game3);
+                int[] help = game3.returnHelp();
+                for (int i = help.Length;  0 < i; i--)
+                {
+                    if (i == 4) { Console.Write("Перемещение было из {0}", help[--count]); }
+                    if (i == 3) { Console.Write(",{0}", help[--count]); }
+                    if (i == 2) { Console.Write(" в {0}", help[--count]); }
+                    if (i == 1) { Console.Write(",{0}", help[--count]); };
+                }
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine("\t\tНекорректные данные!!!");
+            }
+        }
     }
 }
