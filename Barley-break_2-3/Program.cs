@@ -43,32 +43,41 @@ namespace Barley_break
 
         static void StatGame1(ClassGameOne game1)
         {
-                Console.Clear();
-                PrintGameField.MethodWhichPrintGameField(game1);
-
+            int moveValue = 0;
+            Console.Clear();
+            PrintGameField.MethodWhichPrintGameField(game1);
+            try
+            {
                 Console.Write("Eсли хотите поменять числа, введите число = ");
-                int moveValue = Convert.ToInt32(Console.ReadLine());
+                moveValue = Convert.ToInt32(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+                
+                throw new Exception("Введен неопознанный символ");
+            }
                
-                Console.Clear(); PrintGameField.MethodWhichPrintGameField(game1);
-                Console.Write("Как надоест играть, нажмите введите '1000' = ");
-                while (!(moveValue == 1000))
+            Console.Clear(); PrintGameField.MethodWhichPrintGameField(game1);
+            Console.Write("Как надоест играть, нажмите введите '1000' = ");
+            while (!(moveValue == 1000))
+            {
+                if (game1.Shift(moveValue))
                 {
-                    if (game1.Shift(moveValue))
-                    {
-                        Console.Clear();
-                        PrintGameField.MethodWhichPrintGameField(game1);
-                    }
-                    else
-                    {
-                        Console.WriteLine("\t\tНекорректные данные!!!");
-                    }
-                    Console.Write("Введите число = ");
-                    moveValue = Convert.ToInt32(Console.ReadLine());
+                    Console.Clear();
+                    PrintGameField.MethodWhichPrintGameField(game1);
+                }
+                else
+                {
+                     Console.WriteLine("\t\tНекорректные данные!!!");
+                }
+                     Console.Write("Введите число = ");
+                     moveValue = Convert.ToInt32(Console.ReadLine());
                 }
                 //Console.ForegroundColor = ConsoleColor.White;
         }
         static void StartGame2(ClassGameSecond game2)
         {
+            int moveValue = 0;
             Console.Write("\n\tХотите ли вы сыграть? \n\t если да наберите Y \n\t если нет то любую клавишу = ");
             while (Convert.ToString(Console.ReadLine()) == "Y")
             {
@@ -77,8 +86,16 @@ namespace Barley_break
 
                 while (!game2.CheckWin())
                 {
-                    Console.Write("Eсли хотите поменять числа, введите число = ");
-                    int moveValue = Convert.ToInt32(Console.ReadLine());
+                    try
+                    {
+                        Console.Write("Eсли хотите поменять числа, введите число = ");
+                        moveValue = Convert.ToInt32(Console.ReadLine());
+                    }
+                    catch (Exception)
+                    {
+
+                        throw new Exception("Введен неопознанный символ");
+                    }
 
                     Console.Clear(); PrintGameField.MethodWhichPrintGameField(game2);
                     if (game2.Shift(moveValue))
@@ -97,7 +114,7 @@ namespace Barley_break
         }
         static void StartGame3(ClassGameThird game3)
         {
-
+            int moveValue = 0;
             Console.Write("\n\tХотите ли вы сыграть? \n\t если да наберите Y \n\t если нет то любую клавишу = ");
             while (Convert.ToString(Console.ReadLine()) == "Y")
             {
@@ -106,8 +123,16 @@ namespace Barley_break
 
                 while (!game3.CheckWin())
                 {
-                    Console.Write("Eсли хотите поменять числа, введите число = ");
-                    int moveValue = Convert.ToInt32(Console.ReadLine());
+                    try
+                    {
+                        Console.Write("Eсли хотите поменять числа, введите число = ");
+                        moveValue = Convert.ToInt32(Console.ReadLine());
+                    }
+                    catch (Exception)
+                    {
+
+                        throw new Exception("Введен неопознанный символ");
+                    }
 
                     Console.Clear(); PrintGameField.MethodWhichPrintGameField(game3);
                     if (game3.Shift(moveValue))
