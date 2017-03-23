@@ -11,13 +11,19 @@ namespace Barley_break
     {
         //public readonly List<int[]> saveCoordinateGameField;
         public readonly List<int> saveValueGameField;
-        public int[] help;
+        //public int[] help;
         public ClassGameThird(params int[] numbers)
             : base(numbers)
         {
           //saveCoordinateGameField = new List<int[]>();
             saveValueGameField = new List<int>();
-            help = new int[4];
+           //help = new int[4];
+        }
+        public ClassGameThird(int size)
+            : base(size)
+        {
+            saveValueGameField = new List<int>();
+            //help = new int[4];
         }
 
         public override bool Shift(int mValue)
@@ -45,9 +51,9 @@ namespace Barley_break
                 base.Shift(valueWhichSaveLastNumbers);
             }
         }
-        public int[] returnHelp()
-        {
-            return help;
-        }
+        //public int[] returnHelp()
+        //{
+        //    return help;
+        //}
     }
 }

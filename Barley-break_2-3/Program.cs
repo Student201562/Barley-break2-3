@@ -27,7 +27,7 @@ namespace Barley_break
                 }
                 case 2:
                 {
-                        ClassGameSecond game2 = new ClassGameSecond(returnInt);
+                        ClassGameSecond game2 = new ClassGameSecond(5);
                         StartGame2(game2);
                     break;
                 }
@@ -43,33 +43,33 @@ namespace Barley_break
 
         static void StatGame1(ClassGameOne game1)
         {
-            Console.Write("\tХотите ли вы сыграть? \n\t если да наберите Y \n\t если нет то любую клавишу = ");
-            while (Convert.ToString(Console.ReadLine()) == "Y")
-            {
                 Console.Clear();
                 PrintGameField.MethodWhichPrintGameField(game1);
 
                 Console.Write("Eсли хотите поменять числа, введите число = ");
                 int moveValue = Convert.ToInt32(Console.ReadLine());
-
+               
                 Console.Clear(); PrintGameField.MethodWhichPrintGameField(game1);
-                if (game1.Shift(moveValue))
+                Console.Write("Как надоест играть, нажмите введите '1000' = ");
+                while (!(moveValue == 1000))
                 {
-                    Console.Clear(); PrintGameField.MethodWhichPrintGameField(game1);
-                }
-                else
-                {
-                    Console.WriteLine("\t\tНекорректные данные!!!");
+                    if (game1.Shift(moveValue))
+                    {
+                        Console.Clear();
+                        PrintGameField.MethodWhichPrintGameField(game1);
+                    }
+                    else
+                    {
+                        Console.WriteLine("\t\tНекорректные данные!!!");
+                    }
+                    Console.Write("Введите число = ");
+                    moveValue = Convert.ToInt32(Console.ReadLine());
                 }
                 //Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("Вы выиграли!");
-                Console.Write("Если вы хотите сыграть еще раз, намите Y = ");
-            }
-
         }
         static void StartGame2(ClassGameSecond game2)
         {
-            Console.Write("\tХотите ли вы сыграть? \n\t если да наберите Y \n\t если нет то любую клавишу = ");
+            Console.Write("\n\tХотите ли вы сыграть? \n\t если да наберите Y \n\t если нет то любую клавишу = ");
             while (Convert.ToString(Console.ReadLine()) == "Y")
             {
                 Console.Clear();
@@ -98,7 +98,7 @@ namespace Barley_break
         static void StartGame3(ClassGameThird game3)
         {
 
-            Console.Write("\tХотите ли вы сыграть? \n\t если да наберите Y \n\t если нет то любую клавишу = ");
+            Console.Write("\n\tХотите ли вы сыграть? \n\t если да наберите Y \n\t если нет то любую клавишу = ");
             while (Convert.ToString(Console.ReadLine()) == "Y")
             {
                 Console.Clear();
@@ -129,7 +129,6 @@ namespace Barley_break
                         Console.WriteLine("\t\tНекорректные данные!!!");
                     }
                 }
-                //Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("Вы выиграли!");
                 Console.Write("Если вы хотите сыграть еще раз, намите Y = ");
             }

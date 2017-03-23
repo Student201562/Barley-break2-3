@@ -13,6 +13,11 @@ namespace Barley_break
         {
             GenerationNumbersOnField();
         }
+        public ClassGameSecond(int size)
+            : base(size)
+        {
+            GenerationNumbersOnField();                
+        }
 
         public void GenerationNumbersOnField()
         {
