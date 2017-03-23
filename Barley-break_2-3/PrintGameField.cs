@@ -12,9 +12,10 @@ namespace Barley_break
         public static void MethodWhichPrintGameField(ClassGameOne game)
         {
             Console.CursorTop = 2;
-            Console.WriteLine("\t\t\t Y");
-            Console.WriteLine("\r\t\t   X");
-            int[,] helperMassive = game.returnfield();
+            //Console.WriteLine("\t\t\t Y");
+            //Console.WriteLine("\r\t\t   X");
+
+            int[,] helperMassive = new int[(int)Math.Sqrt(game.returnfield().Length), (int)Math.Sqrt(game.returnfield().Length)];
             for (int i = 0; i < helperMassive.GetLength(0); i++)
             {
                 Console.Write("\t\t\t");
@@ -36,6 +37,18 @@ namespace Barley_break
                 }
                 Console.WriteLine();
             }
+        }
+
+        public static void PrintHistory(List<int> history)
+        {
+            Console.Write("Ваша история: ");
+            int count = 1;
+            foreach (int i in history)
+            {
+                Console.Write(count + ") " + i + "\t");
+                count++;
+            }
+            Console.WriteLine();
         }
     }
 }

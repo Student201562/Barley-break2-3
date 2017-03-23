@@ -8,7 +8,13 @@ namespace Barley_break
 {
     internal class ClassGameSecond : ClassGameOne
     {
-        protected void GenerationNumbersOnField()
+        public ClassGameSecond(params int[] numbers)
+            : base(numbers)
+        {
+            GenerationNumbersOnField();
+        }
+
+        public void GenerationNumbersOnField()
         {
             Random gen = new Random();
             int temp = 0;

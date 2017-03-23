@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Barley_break
 {
@@ -11,52 +12,126 @@ namespace Barley_break
     {
         static void Main(string[] args)
         {
-            //int[] returnInt = FileReader.ReadFromFile("C:\\Users\\Kiril\\OneDrive\\Документы\\Visual Studio 2015\\Projects\\Barley_break\\txt.txt");
+            int[] returnInt = ClassWhichReadOfFile.ReadFromFile("C:\\Users\\Kiril\\OneDrive\\Документы\\Visual Studio 2015\\Projects\\Barley_break\\txt.txt");
+            Console.Write("\tВы можете поиграть в ТРИ игры\nВ превой игре у вас не будет говорится о победе\n\tВо второй игре у вас будет реализация перемешивания и выйграша" +
+                          "\n\tВ третьей игре вы играете в полноценную игру\n\tВыберете цифры от 1-3 = ");
+            int usersName = Convert.ToInt32(Console.ReadLine());
+            //TODO: Сделать размерность!!!
+            switch (usersName)
+            {
+                case 1:
+                {
+                        ClassGameOne game1 = new ClassGameOne(returnInt);
+                        StatGame1(game1);
+                    break;
+                }
+                case 2:
+                {
+                        ClassGameSecond game2 = new ClassGameSecond(returnInt);
+                        StartGame2(game2);
+                    break;
+                }
+                case 3:
+                {
+                        ClassGameThird game3 = new ClassGameThird(returnInt);
+                        StartGame3(game3);
+                    break;
+                }
+            }
+            Console.ReadKey();
+        }
 
+        static void StatGame1(ClassGameOne game1)
+        {
             Console.Write("\tХотите ли вы сыграть? \n\t если да наберите Y \n\t если нет то любую клавишу = ");
             while (Convert.ToString(Console.ReadLine()) == "Y")
             {
-                ClassGameThird game3 = new ClassGameThird(1, 2, 3, 4, 0, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
-
                 Console.Clear();
-                PrintGameField.MethodWhichPrintGameField(game3);
+                PrintGameField.MethodWhichPrintGameField(game1);
 
-                while (!game3.CheckWin())
+                Console.Write("Eсли хотите поменять числа, введите число = ");
+                int moveValue = Convert.ToInt32(Console.ReadLine());
+
+                Console.Clear(); PrintGameField.MethodWhichPrintGameField(game1);
+                if (game1.Shift(moveValue))
                 {
-                    StartGame(game3);
+                    Console.Clear(); PrintGameField.MethodWhichPrintGameField(game1);
+                }
+                else
+                {
+                    Console.WriteLine("\t\tНекорректные данные!!!");
                 }
                 //Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("Вы выиграли!");
                 Console.Write("Если вы хотите сыграть еще раз, намите Y = ");
             }
 
-            Console.ReadKey();
         }
-
-        static void StartGame(ClassGameThird game3)
+        static void StartGame2(ClassGameSecond game2)
         {
-            int count = game3.help.Length;
-
-            Console.Write("\t\tВведите значение, которое хотите поменять = ");
-            int moveValue = Convert.ToInt32(Console.ReadLine());
-            Console.Clear(); PrintGameField.MethodWhichPrintGameField(game3);
-
-            if (game3.Shift(moveValue))
+            Console.Write("\tХотите ли вы сыграть? \n\t если да наберите Y \n\t если нет то любую клавишу = ");
+            while (Convert.ToString(Console.ReadLine()) == "Y")
             {
-                Console.Clear(); PrintGameField.MethodWhichPrintGameField(game3);
-                int[] help = game3.returnHelp();
-                for (int i = help.Length;  0 < i; i--)
+                Console.Clear();
+                PrintGameField.MethodWhichPrintGameField(game2);
+
+                while (!game2.CheckWin())
                 {
-                    if (i == 4) { Console.Write("Перемещение было из {0}", help[--count]); }
-                    if (i == 3) { Console.Write(",{0}", help[--count]); }
-                    if (i == 2) { Console.Write(" в {0}", help[--count]); }
-                    if (i == 1) { Console.Write(",{0}", help[--count]); };
+                    Console.Write("Eсли хотите поменять числа, введите число = ");
+                    int moveValue = Convert.ToInt32(Console.ReadLine());
+
+                    Console.Clear(); PrintGameField.MethodWhichPrintGameField(game2);
+                    if (game2.Shift(moveValue))
+                    {
+                        Console.Clear(); PrintGameField.MethodWhichPrintGameField(game2);
+                    }
+                    else
+                    {
+                        Console.WriteLine("\t\tНекорректные данные!!!");
+                    }
                 }
-                Console.WriteLine();
+                //Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Вы выиграли!");
+                Console.Write("Если вы хотите сыграть еще раз, намите Y = ");
             }
-            else
+        }
+        static void StartGame3(ClassGameThird game3)
+        {
+
+            Console.Write("\tХотите ли вы сыграть? \n\t если да наберите Y \n\t если нет то любую клавишу = ");
+            while (Convert.ToString(Console.ReadLine()) == "Y")
             {
-                Console.WriteLine("\t\tНекорректные данные!!!");
+                Console.Clear();
+                PrintGameField.MethodWhichPrintGameField(game3);
+
+                while (!game3.CheckWin())
+                {
+                    Console.Write("Eсли хотите поменять числа, введите число = ");
+                    int moveValue = Convert.ToInt32(Console.ReadLine());
+
+                    Console.Clear(); PrintGameField.MethodWhichPrintGameField(game3);
+                    if (game3.Shift(moveValue))
+                    {
+                        Console.Clear(); PrintGameField.MethodWhichPrintGameField(game3);
+                        PrintGameField.PrintHistory(game3.saveValueGameField);
+                        Console.Write("Чтобы сделать откат на один шаг нажмите 'r' = ");
+
+                        while (Convert.ToString(Console.ReadLine()) == "r")
+                        {
+                            Console.Clear();
+                            game3.Rollback();
+                            PrintGameField.MethodWhichPrintGameField(game3);
+                            PrintGameField.PrintHistory(game3.saveValueGameField);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("\t\tНекорректные данные!!!");
+                    }
+                }
+                //Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Вы выиграли!");
+                Console.Write("Если вы хотите сыграть еще раз, намите Y = ");
             }
         }
     }

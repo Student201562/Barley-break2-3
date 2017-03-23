@@ -13,8 +13,33 @@ namespace Barley_break
     public class ClassGameOne
     {
         protected int[,] gameField;
-        //Заполнение вспомогательного массива Numbers
-        public static bool IsExsistGameField(int[] valueForPlay)
+
+        public ClassGameOne(params int[] valueForPlay)
+        {
+            if (IsExsistGameField(valueForPlay))
+            {
+                FilingArray(valueForPlay);
+            }
+            else
+            {
+                throw new Exception();
+            }
+        }
+        protected void FilingArray(int[] valueForPlay)
+        {
+            int temp = 0;
+
+            this.gameField = new int[(int)Math.Sqrt(valueForPlay.Length), (int)Math.Sqrt(valueForPlay.Length)];
+            for (int i = 0; i < gameField.GetLength(0); i++)
+            {
+                for (int j = 0; j < gameField.GetLength(1); j++)
+                {
+                    gameField[i, j] = valueForPlay[temp];
+                    temp++;
+                }
+            }
+        }
+        private bool IsExsistGameField(int[] valueForPlay)
         {
             int count = 0;
 
@@ -73,7 +98,6 @@ namespace Barley_break
                     }
                 }
             }
-
             return null;
         }
         // Метод, который отвечает за перемещение
